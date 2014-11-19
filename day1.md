@@ -1,9 +1,5 @@
 # Day 1 
 
-http://www.udpwork.com/item/13025.html#reviews
-
-https://github.com/i5ting/frozen
-
 ## gcc编译带符号
 
 - gcc是linux平台下的C、C++ 编译器
@@ -60,3 +56,30 @@ https://github.com/i5ting/frozen
 说明: -o  directory ：参数o （output）后面跟路径名称，在当前目录下创建指定目录，本例中是result
    
 至此： 可以在result目录中打开index.html 浏览覆盖信息
+
+
+## demo makefile
+
+https://github.com/i5ting/frozen
+
+
+```
+PROF = -fprofile-arcs -ftest-coverage -g -O0
+CFLAGS = -W -Wall -pedantic -O3 $(CFLAGS_EXTRA)
+
+all:
+	gcc $(PROF) unit_test.c -o unit_test $(CFLAGS) && ./unit_test
+	gcov -a unit_test
+	lcov -d . -t 'unit_test' -o 'unit_test.info' -b . -c
+	genhtml -o result unit_test.info
+
+clean:
+	rm -rf  *.info* *.gc* *.dSYM unit_test unit_test.exe
+
+open:
+	open result/index.html
+```
+
+## Resources
+
+- http://www.udpwork.com/item/13025.html#reviews
